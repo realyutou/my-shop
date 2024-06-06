@@ -45,10 +45,7 @@ const Header = () => {
     <StyledHeader>
       <div className="header-container container">
         <Logo to="/">
-          <img
-            src="https://pixabay.com/get/g8a937112ede7cfd120aeb82f38bd24073ba7815732f9f4c0c782b3d889273eecd025cb66aef62ccc4ec9180b01738239_640.png"
-            alt="logo"
-          />
+          <img src="https://i.imgur.com/H1o4dhs.png" alt="logo" />
         </Logo>
         <CartLink to="/">
           <CartIcon />
