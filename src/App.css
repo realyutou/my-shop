@@ -5,6 +5,6 @@
 .container {
   /* outline: 1px solid red; */
   margin: 0 auto;
-  min-width: 375px;
+  /* min-width: 375px; */
   max-width: 1110px;
 }

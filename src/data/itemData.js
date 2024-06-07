@@ -33,7 +33,7 @@ const items = [
     name: "劫盜地圖",
     price: 500,
     description:
-      "記載霍格華茲秘密通道的地圖，用魔杖指著地圖說出「我在此鄭重發誓，我絕對不懷好意」即可開啟，結束時，用魔杖指著羊皮紙說出「惡作劇完成」。",
+      "開啟時，用魔杖指著地圖說出「我在此鄭重發誓，我絕對不懷好意」，結束時，用魔杖指著地圖說出「惡作劇完成」。",
     image: "https://i.imgur.com/IyeBOjC.jpg",
   },
   {
@@ -41,7 +41,7 @@ const items = [
     name: "火閃電",
     price: 1500,
     description:
-      "採用流線型設計，優質白蠟木柄，鑽石打磨，註冊號碼手工鐫寫。掃帚尾部每根精心挑選的白樺樹枝都磨成流線型，使掃帚具有無與倫比的平衡性和精妙的準確性，能在十秒鐘內從靜止加速到每小時150英里。",
+      "採用流線型設計，優質白蠟木柄，鑽石打磨，能在十秒鐘內從靜止加速到每小時150英里。",
     image: "https://i.imgur.com/ddj9MwE.jpg",
   },
   {
@@ -67,6 +67,29 @@ const items = [
     description:
       "湯姆瑞斗的日記本，同時也是他的其中一個分靈體，請勿將此物品靠近蛇妖的毒牙。",
     image: "https://i.imgur.com/O9YrjTD.jpg",
+  },
+  {
+    id: 10,
+    name: "襪子",
+    price: 50,
+    description: "家庭小精靈的自由。",
+    image: "https://i.imgur.com/63UZr9d.png",
+  },
+  {
+    id: 11,
+    name: "魔蘋果",
+    price: 300,
+    description:
+      "成熟的魔蘋果葉片製成的魔藥可以讓被石化的受害者恢復過來，但你得小心他們的尖叫聲。",
+    image: "https://i.imgur.com/vuBoaeh.jpg",
+  },
+  {
+    id: 12,
+    name: "儲思盆",
+    price: 3000,
+    description:
+      "用於回顧記憶的石盆，可以提取自己或別人的記憶，把它們存儲在儲思盆之中以供日後查看。",
+    image: "https://i.imgur.com/S5p9Mg8.jpg",
   },
 ];
 
