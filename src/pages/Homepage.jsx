@@ -1,11 +1,13 @@
 import { Header, Footer } from "../components";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
 
 const HomePage = () => {
+  const location = useLocation();
+
   return (
     <>
+      {location.pathname === "/" && <Navigate to="/items" />}
       <Header />
-      <Navigate to="/items" />
       <Outlet />
       <Footer />
     </>

@@ -4,7 +4,6 @@ import Item from "./Item";
 const ItemsSection = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-top: 20px;
 
   @media screen and (min-width: 768px) {
     grid-template-columns: repeat(4, 1fr);
@@ -13,7 +12,7 @@ const ItemsSection = styled.div`
 
 const ItemCollection = ({ items }) => {
   return (
-    <ItemsSection className="container">
+    <ItemsSection className="container outlet">
       {items.map((item) => (
         <Item
           key={item.id}
