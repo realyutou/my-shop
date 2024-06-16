@@ -7,13 +7,12 @@ const Wrapper = styled.div`
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  margin-top: 10px;
   width: 116px;
   height: 27px;
 `;
 
-const QuantityCounter = () => {
-  const [quantity, setQuantity] = useState(1);
+const QuantityCounter = ({ initialQuantity }) => {
+  const [quantity, setQuantity] = useState(initialQuantity);
   const handlePlusClick = () => {
     setQuantity(quantity + 1);
   };

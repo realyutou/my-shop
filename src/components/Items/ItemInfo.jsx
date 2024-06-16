@@ -43,6 +43,7 @@ const ItemInfoSection = styled.div`
   .check-wrapper {
     display: flex;
     align-items: flex-end;
+    padding: 10px 0;
 
     button {
       border: none;
@@ -104,7 +105,7 @@ const ItemInfo = ({ name, price, description, image }) => {
           </ul>
           <p className="item-price">{"$" + formatNum(price)}</p>
           <div className="check-wrapper">
-            <QuantityCounter />
+            <QuantityCounter initialQuantity={1} />
             <button>
               <i className="fa-solid fa-cart-shopping"></i> 加入購物車
             </button>

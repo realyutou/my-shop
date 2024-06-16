@@ -1,5 +1,5 @@
 import "./App.css";
-import { HomePage, ItemsPage, ItemPage } from "./pages";
+import { HomePage, ItemsPage, ItemPage, CartPage } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -14,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "items/:itemId",
         element: <ItemPage />,
+      },
+      {
+        path: "cart",
+        element: <CartPage />,
       },
     ],
   },
