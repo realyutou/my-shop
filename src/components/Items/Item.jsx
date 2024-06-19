@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import formatNum from "format-num";
 import { Link } from "react-router-dom";
+import { useCart } from "../../contexts/CartContext";
 
 const ItemSection = styled.div`
   position: relative;
@@ -85,9 +86,21 @@ const ItemSection = styled.div`
 `;
 
 const Item = ({ id, name, price, description, image }) => {
+  const { addToCart } = useCart();
+  const handleCartIconClick = () => {
+    const product = {
+      id,
+      name,
+      price,
+      image,
+      quantity: 1,
+    };
+
+    addToCart(product);
+  };
   return (
     <ItemSection>
-      <button className="cart-button">
+      <button className="cart-button" onClick={handleCartIconClick}>
         <i className="fa-solid fa-cart-shopping"></i>
       </button>
       <Link to={`/items/${id}`}>

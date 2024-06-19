@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import formatNum from "format-num";
+import { useState } from "react";
 import QuantityCounter from "../QuantityCounter";
+import { useCart } from "../../contexts/CartContext";
 
 const ItemInfoSection = styled.div`
   text-align: start;
@@ -53,6 +55,7 @@ const ItemInfoSection = styled.div`
       height: 27px;
       background-color: #f86363;
       color: #ffffff;
+      cursor: pointer;
     }
   }
 
@@ -86,7 +89,31 @@ const ItemInfoSection = styled.div`
   }
 `;
 
-const ItemInfo = ({ name, price, description, image }) => {
+const ItemInfo = ({ id, name, price, description, image }) => {
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
+
+  const handlePlusClick = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleMinusClick = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const handleAddButtonClick = () => {
+    const product = {
+      id,
+      name,
+      price,
+      image,
+      quantity,
+    };
+
+    addToCart(product);
+  };
   return (
     <>
       <ItemInfoSection className="container outlet">
@@ -105,8 +132,12 @@ const ItemInfo = ({ name, price, description, image }) => {
           </ul>
           <p className="item-price">{"$" + formatNum(price)}</p>
           <div className="check-wrapper">
-            <QuantityCounter initialQuantity={1} />
-            <button>
+            <QuantityCounter
+              quantity={quantity}
+              onPlusClick={handlePlusClick}
+              onMinusClick={handleMinusClick}
+            />
+            <button onClick={handleAddButtonClick}>
               <i className="fa-solid fa-cart-shopping"></i> 加入購物車
             </button>
           </div>

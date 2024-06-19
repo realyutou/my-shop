@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useCart } from "../contexts/CartContext";
 
 const StyledHeader = styled.header`
   position: sticky;
@@ -38,21 +39,38 @@ const Logo = styled(Link)`
 `;
 
 const CartLink = styled(Link)`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px;
-  border-radius: 50%;
-  aspect-ratio: 1 / 1;
-  width: 3%;
+  margin-right: 20px;
+  height: 35px;
+  width: 35px;
   text-decoration: none;
   color: black;
-  &:hover {
-    background-color: #c4c5c6;
+
+  .item-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    font-size: 0.625rem;
+    background-color: red;
+    color: #ffffff;
   }
 `;
 
 const Header = () => {
+  const { products } = useCart();
+  let itemCount = 0;
+  if (products?.length > 0) {
+    products.map((prod) => (itemCount += prod.quantity));
+  }
   return (
     <StyledHeader>
       <div className="header-container container">
@@ -60,6 +78,7 @@ const Header = () => {
           <img src="https://i.imgur.com/H1o4dhs.png" alt="logo" />
         </Logo>
         <CartLink to="/cart">
+          <div className="item-count">{itemCount}</div>
           <i className="fa-solid fa-cart-shopping"></i>
         </CartLink>
       </div>

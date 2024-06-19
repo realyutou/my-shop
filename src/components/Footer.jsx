@@ -13,7 +13,6 @@ const StyledFooter = styled.footer`
 
   .content-container {
     width: 250px;
-    // height:
     margin: 0 auto;
   }
 
@@ -53,7 +52,7 @@ const StyledFooter = styled.footer`
   }
 
   .memo {
-    margin-top: 20px;
+    margin: 20px 0 0 0;
     color: #ffffff;
   }
 `;

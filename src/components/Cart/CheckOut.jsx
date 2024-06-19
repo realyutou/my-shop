@@ -5,7 +5,7 @@ import {
   StyledInput,
 } from "./form.styled";
 
-const CheckOut = () => {
+const Checkout = () => {
   return (
     <FormContainer>
       <InputWrapper>
@@ -28,4 +28,4 @@ const CheckOut = () => {
   );
 };
 
-export default CheckOut;
+export default Checkout;

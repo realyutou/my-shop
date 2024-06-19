@@ -1,6 +1,7 @@
 import "./App.css";
 import { HomePage, ItemsPage, ItemPage, CartPage } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { CartProvider } from "./contexts/CartContext";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
     </div>
   );
 }
