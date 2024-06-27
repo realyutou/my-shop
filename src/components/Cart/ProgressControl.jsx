@@ -20,6 +20,7 @@ const ProgressControlContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
     border-radius: 5px;
     width: 156px;
     height: 46px;
@@ -48,7 +49,7 @@ const ProgressControlContainer = styled.div`
   }
 `;
 
-const ProgressControl = ({ step, onPrevClick, onNextClick }) => {
+const ProgressControl = ({ step, onPrevClick }) => {
   return (
     <ProgressControlContainer>
       {step > 1 && (
@@ -59,7 +60,7 @@ const ProgressControl = ({ step, onPrevClick, onNextClick }) => {
           <p>上一步</p>
         </div>
       )}
-      <div className={step === 1 ? "next large" : "next"} onClick={onNextClick}>
+      <button type="submit" className={step === 1 ? "next large" : "next"}>
         <div className="text-wrapper">
           <p>{step === 3 ? "確認下單" : "下一步"}</p>
           <p>
@@ -70,7 +71,7 @@ const ProgressControl = ({ step, onPrevClick, onNextClick }) => {
             )}
           </p>
         </div>
-      </div>
+      </button>
     </ProgressControlContainer>
   );
 };

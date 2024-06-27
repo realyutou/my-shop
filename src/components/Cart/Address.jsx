@@ -1,28 +1,44 @@
-import {
-  FormContainer,
-  InputWrapper,
-  InputLabel,
-  StyledInput,
-} from "./form.styled";
+import { FormContainer, InputWrapper, InputLabel } from "./form.styled";
+import InputField from "./InputField";
 
 const Address = () => {
   return (
     <FormContainer>
       <InputWrapper>
         <InputLabel>姓名</InputLabel>
-        <StyledInput placeholder="請輸入姓名" />
+        <InputField
+          placeholder="請輸入姓名"
+          name="customerName"
+          type="text"
+          maxLength={20}
+        />
       </InputWrapper>
       <InputWrapper>
         <InputLabel>電話</InputLabel>
-        <StyledInput placeholder="請輸入電話號碼" />
+        <InputField
+          placeholder="請輸入電話號碼"
+          name="phoneNumber"
+          type="text"
+          maxLength={10}
+        />
       </InputWrapper>
       <InputWrapper>
         <InputLabel>電子郵件</InputLabel>
-        <StyledInput placeholder="請輸入電子郵件" />
+        <InputField
+          placeholder="請輸入電子郵件"
+          name="email"
+          type="text"
+          maxLength={30}
+        />
       </InputWrapper>
       <InputWrapper>
         <InputLabel>地址</InputLabel>
-        <StyledInput placeholder="請輸入地址" />
+        <InputField
+          placeholder="請輸入地址"
+          name="address"
+          type="text"
+          maxLength={30}
+        />
       </InputWrapper>
     </FormContainer>
   );

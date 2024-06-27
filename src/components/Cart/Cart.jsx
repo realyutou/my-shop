@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import formatNum from "format-num";
+import { Formik, Form } from "formik";
+import * as yup from "yup";
 import { useCart } from "../../contexts/CartContext";
 import Progress from "./Progress";
 import Address from "./Address";
@@ -23,7 +25,7 @@ const CartContainer = styled.div`
     padding: 8px 0;
   }
 
-  form {
+  .form-wrapper {
     margin: 24px 0;
   }
 
@@ -65,11 +67,24 @@ const CartContainer = styled.div`
   .no-item {
     text-align: center;
 
-    button {
+    div {
+      border-radius: 5px;
+      margin: 0 auto;
+      width: 100px;
+      height: 23px;
+      font-size: 0.875rem;
       cursor: pointer;
       background-color: #000000;
       color: #ffffff;
     }
+  }
+
+  .form-message {
+    margin: 0;
+    padding: 5px 18px;
+    color: red;
+    font-size: 0.75rem;
+    text-align: center;
   }
 
   @media screen and (min-width: 768px) {
@@ -104,7 +119,7 @@ const CartContainer = styled.div`
 
 const Cart = () => {
   const [step, setStep] = useState(1);
-  const { products, totalPrice } = useCart();
+  const { products, totalPrice, setPayInfo, payInfo } = useCart();
 
   const toPrevStep = () => {
     if (step > 1) {
@@ -115,6 +130,8 @@ const Cart = () => {
   const toNextStep = () => {
     if (step < 3) {
       setStep((prev) => prev + 1);
+    } else {
+      console.log(payInfo);
     }
   };
 
@@ -139,62 +156,131 @@ const Cart = () => {
 
   const { title, form } = switchForm();
 
+  let validate = yup.object({
+    customerName: yup
+      .string()
+      .max(20, "字數超過限制。")
+      .required("欄位不得為空。"),
+    phoneNumber: yup
+      .string()
+      .max(10, "請輸入正確電話號碼。")
+      .required("欄位不得為空。"),
+    address: yup.string().max(30, "字數超過限制。").required("欄位不得為空。"),
+    email: yup.string().email("電子郵件格式有誤。").required("欄位不得為空。"),
+    shipping: yup.string().required("欄位不得為空。"),
+  });
+
+  if (step === 3) {
+    validate = yup.object({
+      customerName: yup
+        .string()
+        .max(20, "字數超過限制。")
+        .required("欄位不得為空。"),
+      phoneNumber: yup
+        .string()
+        .max(10, "請輸入正確電話號碼。")
+        .required("欄位不得為空。"),
+      address: yup
+        .string()
+        .max(30, "字數超過限制。")
+        .required("欄位不得為空。"),
+      email: yup
+        .string()
+        .email("電子郵件格式有誤。")
+        .required("欄位不得為空。"),
+      shipping: yup.string().required("欄位不得為空。"),
+      holderName: yup
+        .string()
+        .max(30, "字數超過限制。")
+        .required("欄位不得為空。"),
+      cardNumber: yup
+        .string()
+        .length(19, "請輸入正確格式。")
+        .required("欄位不得為空。"),
+      expiryDate: yup
+        .string()
+        .length(5, "請輸入正確格式。")
+        .required("欄位不得為空。"),
+      cvc: yup
+        .string()
+        .length(3, "請輸入正確格式。")
+        .required("欄位不得為空。"),
+    });
+  }
+
   return (
     <CartContainer className="container outlet">
-      <h1 className="page-title">結帳</h1>
-      <div className="main-section">
-        <div className="progress-section">
-          <Progress step={step} />
-          <form>
-            <h1 className="form-title">{title}</h1>
-            {form}
-          </form>
-        </div>
-        <div className="product-section">
-          <h1 className="product-header">購物籃</h1>
-          <div className="product-wrapper">
-            {products?.length > 0 ? (
-              products.map((prod) => (
-                <Product
-                  key={prod.id}
-                  id={prod.id}
-                  name={prod.name}
-                  price={prod.price}
-                  image={prod.image}
-                  quantity={prod.quantity}
-                />
-              ))
-            ) : (
-              <div className="no-item">
-                <h1>
-                  <i className="fa-solid fa-cart-shopping"></i>
-                </h1>
-                <p>購物車空空如也...</p>
-                <Link to="/items">
-                  <button>現在就去逛逛</button>
-                </Link>
+      <Formik
+        initialValues={{
+          customerName: "",
+          phoneNumber: "",
+          address: "",
+          email: "",
+          shipping: "standard",
+          holderName: "",
+          cardNumber: "",
+          expiryDate: "",
+          cvc: "",
+        }}
+        validationSchema={validate}
+        onSubmit={(values) => {
+          setPayInfo(values);
+          toNextStep();
+        }}
+      >
+        <Form>
+          <h1 className="page-title">結帳</h1>
+          <div className="main-section">
+            <div className="progress-section">
+              <Progress step={step} />
+              <div className="form-wrapper">
+                <h1 className="form-title">{title}</h1>
+                {form}
               </div>
-            )}
+            </div>
+            <div className="product-section">
+              <h1 className="product-header">購物籃</h1>
+              <div className="product-wrapper">
+                {products?.length > 0 ? (
+                  products.map((prod) => (
+                    <Product
+                      key={prod.id}
+                      id={prod.id}
+                      name={prod.name}
+                      price={prod.price}
+                      image={prod.image}
+                      quantity={prod.quantity}
+                    />
+                  ))
+                ) : (
+                  <div className="no-item">
+                    <h1>
+                      <i className="fa-solid fa-cart-shopping"></i>
+                    </h1>
+                    <p>購物車空空如也...</p>
+                    <Link to="/items">
+                      <div>現在就去逛逛</div>
+                    </Link>
+                  </div>
+                )}
+              </div>
+              {products?.length > 0 && (
+                <>
+                  <div className="fee-section shipping">
+                    <p>運費</p>
+                    <p className="fee">0</p>
+                  </div>
+                  <div className="fee-section total">
+                    <p>小計</p>
+                    <p className="fee">{"$" + formatNum(totalPrice)}</p>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-          {products?.length > 0 && (
-            <>
-              <div className="fee-section shipping">
-                <p>運費</p>
-                <p className="fee">0</p>
-              </div>
-              <div className="fee-section total">
-                <p>小計</p>
-                <p className="fee">{"$" + formatNum(totalPrice)}</p>
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-      <ProgressControl
-        step={step}
-        onPrevClick={toPrevStep}
-        onNextClick={toNextStep}
-      />
+          <ProgressControl step={step} onPrevClick={toPrevStep} />
+        </Form>
+      </Formik>
     </CartContainer>
   );
 };

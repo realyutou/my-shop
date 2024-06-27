@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FormContainer, RadioWrapper } from "./form.styled";
+import InputField from "./InputField";
 
 const StyledDiv = styled.div`
   flex: auto;
@@ -26,7 +27,12 @@ const Shipping = () => {
   return (
     <FormContainer>
       <RadioWrapper>
-        <input id="shipping-standard" type="radio" name="shipping" />
+        <InputField
+          id="shipping-standard"
+          type="radio"
+          name="shipping"
+          value="standard"
+        />
         <StyledDiv>
           <div className="shipping-type">
             <p className="shipping-title">基本運送</p>
@@ -38,7 +44,12 @@ const Shipping = () => {
         </StyledDiv>
       </RadioWrapper>
       <RadioWrapper>
-        <input id="shipping-24hrs" type="radio" name="shipping" />
+        <InputField
+          id="shipping-24hrs"
+          type="radio"
+          name="shipping"
+          value="24hrs"
+        />
         <StyledDiv>
           <div className="shipping-type">
             <p className="shipping-title">24小時快捷運送</p>

@@ -5,6 +5,8 @@ const defaultCartContext = {
   addToCart: null,
   removeFromCart: null,
   totalPrice: 0,
+  payInfo: { shipping: "standard" },
+  setPayInfo: null,
 };
 
 const CartContext = createContext(defaultCartContext);
@@ -19,6 +21,7 @@ const sum = (products) => {
 export const useCart = () => useContext(CartContext);
 export const CartProvider = ({ children }) => {
   const [products, setProducts] = useState(null);
+  const [payInfo, setPayInfo] = useState(null);
 
   let totalPrice = 0;
   if (products?.length > 0) {
@@ -54,6 +57,8 @@ export const CartProvider = ({ children }) => {
           setProducts(newProducts);
         },
         totalPrice,
+        payInfo,
+        setPayInfo,
       }}
     >
       {children}
