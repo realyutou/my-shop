@@ -119,7 +119,7 @@ const CartContainer = styled.div`
 
 const Cart = () => {
   const [step, setStep] = useState(1);
-  const { products, totalPrice, setPayInfo, payInfo } = useCart();
+  const { products, setProducts, totalPrice, setPayInfo, payInfo } = useCart();
 
   const toPrevStep = () => {
     if (step > 1) {
@@ -131,7 +131,11 @@ const Cart = () => {
     if (step < 3) {
       setStep((prev) => prev + 1);
     } else {
-      console.log(payInfo);
+      console.log("products, ", products);
+      console.log("payInfo ", payInfo);
+      alert(`下單完成，總金額 ${totalPrice} 元`);
+      setProducts(null);
+      setStep(1);
     }
   };
 
@@ -151,6 +155,13 @@ const Cart = () => {
         title: "付款資訊",
         form: <Checkout />,
       };
+    }
+  };
+
+  const handleSubmitClick = (e) => {
+    if (step === 3 && products === null) {
+      e.preventDefault();
+      alert("購物車是空的。");
     }
   };
 
@@ -212,15 +223,15 @@ const Cart = () => {
     <CartContainer className="container outlet">
       <Formik
         initialValues={{
-          customerName: "",
-          phoneNumber: "",
-          address: "",
-          email: "",
-          shipping: "standard",
-          holderName: "",
-          cardNumber: "",
-          expiryDate: "",
-          cvc: "",
+          customerName: payInfo?.customerName || "",
+          phoneNumber: payInfo?.phoneNumber || "",
+          address: payInfo?.address || "",
+          email: payInfo?.email || "",
+          shipping: payInfo?.shipping || "standard",
+          holderName: payInfo?.holderName || "",
+          cardNumber: payInfo?.cardNumber || "",
+          expiryDate: payInfo?.expiryDate || "",
+          cvc: payInfo?.cvc || "",
         }}
         validationSchema={validate}
         onSubmit={(values) => {
@@ -278,7 +289,11 @@ const Cart = () => {
               )}
             </div>
           </div>
-          <ProgressControl step={step} onPrevClick={toPrevStep} />
+          <ProgressControl
+            step={step}
+            onPrevClick={toPrevStep}
+            onSubmitClick={handleSubmitClick}
+          />
         </Form>
       </Formik>
     </CartContainer>

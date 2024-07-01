@@ -49,7 +49,7 @@ const ProgressControlContainer = styled.div`
   }
 `;
 
-const ProgressControl = ({ step, onPrevClick }) => {
+const ProgressControl = ({ step, onPrevClick, onSubmitClick }) => {
   return (
     <ProgressControlContainer>
       {step > 1 && (
@@ -60,7 +60,11 @@ const ProgressControl = ({ step, onPrevClick }) => {
           <p>上一步</p>
         </div>
       )}
-      <button type="submit" className={step === 1 ? "next large" : "next"}>
+      <button
+        type="submit"
+        className={step === 1 ? "next large" : "next"}
+        onClick={onSubmitClick}
+      >
         <div className="text-wrapper">
           <p>{step === 3 ? "確認下單" : "下一步"}</p>
           <p>

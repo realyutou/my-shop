@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const defaultCartContext = {
   products: null,
+  setProducts: null,
   addToCart: null,
   removeFromCart: null,
   totalPrice: 0,
@@ -32,6 +33,7 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         products,
+        setProducts,
         addToCart: (item) => {
           if (products?.length > 0) {
             const checker = products.find((prod) => item.id === prod.id);
